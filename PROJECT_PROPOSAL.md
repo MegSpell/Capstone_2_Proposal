@@ -1,97 +1,189 @@
-# 🐾 Capstone 2 Project Proposal — Home Fur Good 2.0
+🐾 Home Fur Good 2.0
+Capstone 2 Project Proposal
+---------------
 
-## **Description**
-**Home Fur Good 2.0** is a full-stack web application that connects adoptable dogs with potential adopters.  
-Inspired by Petfinder, this version expands on my original Flask project by rebuilding it in **React and Node.js** with a modern, interactive user experience.
+A modern adoptable-dog discovery platform built with React, Node, and the RescueGroups API.
 
-Users can browse and filter adoptable dogs, favorite the ones they love, and submit adoption applications.  
-A standout feature — the **“Least Loved Spotlight”** — highlights dogs with the fewest total favorites across all users, helping overlooked pets gain visibility.  
-Admins can manage spotlighted dogs, view engagement data, and maintain adoption resources.
+---------------
+📌 Project Description
+---------------
 
----
+Home Fur Good 2.0 is a full-stack web application that connects adoptable dogs with potential adopters. This version expands on my original Flask project by rebuilding it in React and Node.js for a cleaner, more interactive experience.
 
-## **Tech Stack**
-- **Frontend:** React, React Router, Axios, Context API, Tailwind CSS or custom CSS  
-- **Backend:** Node.js, Express, PostgreSQL, JWT authentication  
-- **External API:** Petfinder API (real-time adoptable dog data)  
-- **Testing:** Jest, Supertest, React Testing Library  
-- **Deployment:** Render or Vercel (frontend), Render or Railway (backend)  
+Users can browse and filter adoptable dogs, view detailed profiles, and favorite the ones they love.
+A unique feature — the Least Loved Spotlight — highlights dogs with the fewest favorites across all users, giving overlooked pets a better chance at finding loving homes.
 
----
+Admins can view engagement metrics, manage spotlighted dogs, and maintain rescue resources.
+---------------
+🛠️ Tech Stack
+---------------
+Frontend
 
-## **Focus**
-This will be an **evenly focused full-stack project**.  
-The frontend emphasizes smooth UX, interactivity, and responsiveness, while the backend handles authentication, data persistence, and the logic behind favorites, applications, and spotlight rankings.
+React
 
----
+React Router
 
-## **Type**
-A **responsive web application**, optimized for both desktop and mobile browsers.
+Axios
 
----
+Context API
 
-## **Goal**
-To create a compassionate and engaging adoption platform that increases visibility for dogs in need of homes.  
-Home Fur Good 2.0 aims to make it easy for users to:
-- Find adoptable dogs that match their preferences  
-- Favorite dogs they love and see real-time like counts  
-- Learn about adoption and submit applications online  
-- Help lesser-seen dogs gain attention through the **“Least Loved Spotlight”**
+Custom CSS
 
----
+Backend
 
-## **Users**
-**Primary Users**
-- Individuals and families looking to adopt  
-- Volunteers or advocates promoting shelter dogs  
-- Admins and shelter partners managing data and spotlight content  
+Node.js
 
-The demographic includes adult pet lovers who are tech-savvy, compassionate, and motivated to support animal rescue and adoption.
+Express
 
----
+PostgreSQL
 
-## **Data**
-- **Petfinder API:** Real-time data for adoptable dogs (name, breed, age, size, photos, status).  
-- **Local Database:** Stores user accounts, favorites, adoption applications, and cached dog data for performance and analytics.
+JWT authentication
 
-**Example Schema**
-| Table | Key Fields |
-|--------|-------------|
-| **users** | id, username, email, password, is_admin |
-| **dogs** | pf_id, name, breed, age, size, photo_url, status |
-| **favorites** | user_id, pf_id |
-| **applications** | id, user_id, pf_id, status, form_data |
-| **dog_metrics** | pf_id, favorites_count, views_count |
+External API
 
----
+RescueGroups.org API (v5) for real-time adoptable dog data
 
-## **Challenges & Considerations**
-- Handling Petfinder API rate limits and syncing data efficiently  
-- Securing JWTs and user credentials  
-- Maintaining accurate favorite and view counts across all users  
-- Ensuring accessibility and responsive design on all devices  
+Testing
 
----
+Jest
 
-## **Core Functionality**
-- User signup/login with JWT authentication  
-- Browse, search, and filter adoptable dogs  
-- Favorite/unfavorite dogs with live heart counters  
-- Display total likes on each dog card  
-- “Least Loved Spotlight” highlighting under-favorited dogs  
-- Adoption application form and user dashboard  
-- Admin metrics and resource management  
+Supertest
 
----
+React Testing Library
 
-## **Stretch Goals**
-- Email newsletter signup for new arrivals or adoption updates  
-- Admin analytics dashboard for engagement metrics  
-- Resource center for adoption and training guides  
-- Progressive Web App (PWA) capabilities for offline access  
+Deployment
 
----
+Frontend: Render
 
-## **Summary**
-**Home Fur Good 2.0** combines my passion for animal rescue with full-stack engineering.  
-It’s a meaningful, data-driven platform designed not only to showcase adoptable dogs but also to give those most in need a better chance at finding their forever homes. ❤️
+Backend: Render
+
+---------------
+🐶 Why the RescueGroups API?
+---------------
+
+The project initially explored Petfinder, however the Petfinder API is becing decomissioned and will no onger in use after December 2, 2025. RescueGroups offered more consistent data and broader rescue coverage just more difficulties matching request params so will be a learning curve but doable.
+
+RescueGroups uses a strict JSON:API format, which introduced some challenges:
+
+Requests must be sent as POST, even for searches
+
+Headers must include:
+Content-Type: application/vnd.api+json
+
+Request body must be nested inside a data object
+
+Filters require:
+
+fieldName
+
+operation
+
+criteria
+
+Location searches require a special filterRadius object
+
+Once the structure was correct, the API became reliable and returned detailed dog listings perfect for this project.
+---------------
+🎯 Project Goals
+---------------
+
+Home Fur Good 2.0 aims to provide:
+
+A modern, responsive platform for browsing adoptable dogs
+
+A quick, friendly way to favorite dogs and see total like counts
+
+A unique spotlight section for dogs receiving the least engagement
+
+A seamless adoption-focused experience for both users and admins
+---------------
+👥 Target Users
+---------------
+Primary Users
+
+Individuals or families looking to adopt
+
+Dog lovers and rescue supporters
+
+Admins and volunteers managing spotlight data
+
+Users are typically adult pet lovers who value convenience, responsiveness, and clear design.
+---------------
+📊 Data Model
+---------------
+External (RescueGroups API)
+
+Dog name, breed, age, size
+
+Photo URLs
+
+Rescue info
+
+Location & distance
+
+Status (Available/Pending)
+
+Internal Database
+
+Stores application-specific data such as:
+
+Table	Key Fields
+users	id, username, email, password, is_admin
+favorites	user_id, dog_id
+dogs	rg_id, name, breed, age, size, photo_url
+dog_metrics	dog_id, favorites_count
+⭐ Core Features
+
+User signup/login (JWT authentication)
+
+Browse adoptable dogs
+
+Search & filter by breed, age, size, or location
+
+Favorite/unfavorite dogs
+
+Live favorite counters on each dog card
+
+Least Loved Spotlight
+
+Dog detail pages with rescue info and direct links
+
+Admin dashboard with metrics and resource links
+
+---------------
+🚀 Stretch Features (Optional)
+---------------
+
+Email signup for new arrivals
+
+Enhanced analytics for admins
+
+Training & adoption resource center
+
+Dog-of-the-Day feature
+
+PWA capabilities
+---------------
+❤️ Summary
+---------------
+
+Home Fur Good 2.0 combines animal rescue advocacy with full-stack development.
+The goal is to build a compassionate, user-focused platform that increases visibility for overlooked dogs and makes adoption simpler and more engaging.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
